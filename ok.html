@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CNCT - Reel Swipe App</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body,
+      html {
+        height: 100%;
+        overflow: hidden;
+        background-color: #f0f0f0;
+      }
+
+      #startScreen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(45deg, #4b6cb7, #182848);
+        color: white;
+      }
+
+      #startButton {
+        padding: 20px 30px;
+        font-size: 24px;
+        background: linear-gradient(45deg, #4b6cb7, #182848);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.2s;
+      }
+
+      #startButton:hover {
+        background: linear-gradient(45deg, #182848, #4b6cb7);
+        transform: scale(1.05);
+      }
+
+      .reel-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+        background: #333;
+        color: white;
+      }
+
+      .user-card {
+        position: absolute;
+        width: 320px;
+        height: 480px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        transition: transform 0.4s ease, opacity 0.3s ease;
+        animation: fadeIn 0.4s ease forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(50%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .user-img {
+        width: 100%;
+        height: 70%;
+        object-fit: cover;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+      }
+
+      .user-info {
+        padding: 15px;
+        color: #333;
+      }
+
+      #cnctButton {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+        font-size: 20px;
+        background: linear-gradient(45deg, #ff6f00, #ff8f00);
+        border: none;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.3s;
+      }
+
+      #cnctButton:hover {
+        background: linear-gradient(45deg, #ff8f00, #ff6f00);
+        transform: scale(1.05);
+      }
+
+      .popup {
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border-radius: 5px;
+        z-index: 100;
+      }
+
+      footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="startScreen">
+      <button id="startButton">Start Connecting</button>
+    </div>
+
+    <div id="reelScreen" style="display: none">
+      <div class="reel-container" id="reel"></div>
+    </div>
+
+    <div id="popup" class="popup">Connected!</div>
+
+    <footer>by CNCT</footer>
+
+    <script>
+      const users = [
+        { name: "Aanya", img: "images/uifaces-aanya-image (14).jpg" },
+        { name: "Aarav", img: "images/uifaces-aarav-image (38).jpg" },
+        { name: "Aditya", img: "images/uifaces-aditya-image (33).jpg" },
+        { name: "Aleena", img: "images/uifaces-aleena-image (35).jpg" },
+        { name: "Anika", img: "images/uifaces-anika-image (37).jpg" },
+      ];
+
+      const interests = ["Music", "Travel", "Sports", "Art", "Tech"];
+      const reel = document.getElementById("reel");
+      const popup = document.getElementById("popup");
+      let currentIndex = 0;
+
+      function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
+
+      function showPopup() {
+        popup.style.display = "block";
+        setTimeout(() => (popup.style.display = "none"), 1500);
+      }
+
+      function createCard(user) {
+        const age = getRandomInt(20, 40);
+        const interest = interests[getRandomInt(0, interests.length)];
+        return `
+            <div class="user-card">
+                <img class="user-img" src="${user.img}" alt="${user.name}">
+                <div class="user-info">
+                    <h3>${user.name}, ${age}</h3>
+                    <p>Interest: ${interest}</p>
+                    <button id="cnctButton">CNCT</button>
+                </div>
+            </div>
+        `;
+      }
+
+      function loadUser() {
+        reel.innerHTML = createCard(users[currentIndex]);
+        document
+          .querySelector("#cnctButton")
+          .addEventListener("click", showPopup);
+      }
+
+      function nextUser() {
+        currentIndex = (currentIndex + 1) % users.length;
+        loadUser();
+      }
+
+      document.getElementById("startButton").addEventListener("click", () => {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("reelScreen").style.display = "block";
+        loadUser();
+      });
+
+      document.addEventListener("wheel", (event) => {
+        if (event.deltaY < 0) {
+          nextUser();
+        }
+      });
+    </script>
+  </body>
+</html>

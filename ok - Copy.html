@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CNCT - Personalized Learning</title>
+    <style>
+      :root {
+        --primary-color: #ff6f00;
+        --accent-color: #ff8f00;
+        --text-color: #222;
+        --bg-gradient: linear-gradient(135deg, #fdfbfb, #ebedee);
+        --modal-bg: #fff;
+        --console-bg: #1e1e2f;
+        --console-text: #e0e0e0;
+        --btn-hover: #ffa040;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        background: var(--bg-gradient);
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 20px;
+        min-height: 100vh;
+      }
+
+      header {
+        width: 100%;
+        max-width: 900px;
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px 0;
+      }
+
+      #profileBtn {
+        background: var(--primary-color);
+        color: #fff;
+        padding: 12px 24px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      #profileBtn:hover {
+        background: var(--btn-hover);
+      }
+
+      .title {
+        text-align: center;
+        margin: 40px 0 20px;
+      }
+
+      .title h1 {
+        font-size: 4rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+      .title p {
+        font-size: 1.3rem;
+        font-style: italic;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 100px;
+        right: 40px;
+        background: var(--modal-bg);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        width: 300px;
+        animation: fadeIn 0.4s ease-out;
+      }
+
+      .modal.show {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal input {
+        margin: 8px 0;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+
+      .modal button {
+        background: var(--primary-color);
+        color: #fff;
+        border: none;
+        padding: 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 100%;
+        transition: background 0.3s;
+      }
+
+      .modal button:hover {
+        background: var(--btn-hover);
+      }
+
+      .step {
+        width: 100%;
+        max-width: 900px;
+        margin-top: 40px;
+        display: none;
+      }
+
+      .chatbox {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+      }
+
+      .chatbox input {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        width: 100%;
+      }
+
+      .chatbox button {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .chatbox button:hover {
+        background: var(--btn-hover);
+      }
+
+      .flowchart {
+        margin-top: 20px;
+        padding: 20px;
+        background: var(--console-bg);
+        color: var(--console-text);
+        font-family: "Courier New", monospace;
+        border-radius: 12px;
+        min-height: 150px;
+        white-space: pre-wrap;
+        border: 1px solid #444;
+      }
+
+      footer {
+        margin-top: 60px;
+        padding: 20px;
+        width: 100%;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 10px;
+        max-width: 900px;
+        text-align: center;
+      }
+
+      a {
+        color: white;
+        text-decoration: underline;
+      }
+
+      .connect-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(45deg, #6a11cb, #2575fc);
+        color: white;
+        padding: 14px 24px;
+        border-radius: 12px;
+        font-weight: bold;
+        font-size: 1rem;
+        box-shadow: 0 0 12px rgba(106, 17, 203, 0.6),
+          0 0 18px rgba(37, 117, 252, 0.6);
+        transition: all 0.3s ease;
+        z-index: 999;
+        text-decoration: none;
+      }
+
+      .connect-btn:hover {
+        background: #fff;
+        color: #2575fc;
+        border: 2px solid #2575fc;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="ok.html" target="_blank" class="connect-btn"
+      >Connect with People</a
+    >
+
+    <header>
+      <button id="profileBtn">👤 Profile</button>
+    </header>
+
+    <div class="title">
+      <h1>CNCT</h1>
+      <p>Learn your way - personalised learning</p>
+    </div>
+
+    <div id="profileModal" class="modal">
+      <div id="profileContent">
+        <input type="text" id="nameInput" placeholder="Enter your name" />
+        <input
+          type="text"
+          id="streamInput"
+          placeholder="Enter your stream or focus area"
+        />
+        <button onclick="saveProfile()">Save</button>
+      </div>
+    </div>
+
+    <div class="step" id="interestSection">
+      <h2>Your Interests</h2>
+      <div class="chatbox">
+        <label for="interestsInput">What are you interested in?</label>
+        <input
+          type="text"
+          id="interestsInput"
+          placeholder="e.g. Math, Design, History"
+        />
+        <button onclick="generateFlowchart()">Generate</button>
+      </div>
+      <div id="flowchart" class="flowchart" style="display: none"></div>
+    </div>
+
+    <footer>
+      <h3>Contact Us</h3>
+      <p>Email: cnctcnc@gmail.com</p>
+      <p>Follow us on <a href="#">Instagram</a>, <a href="#">Twitter</a></p>
+    </footer>
+
+    <script>
+      window.onload = () => {
+        localStorage.clear();
+        document.getElementById("profileModal").classList.add("show");
+      };
+
+      const profileBtn = document.getElementById("profileBtn");
+      const profileModal = document.getElementById("profileModal");
+
+      profileBtn.onclick = () => {
+        profileModal.classList.add("show");
+      };
+
+      function saveProfile() {
+        const name = document.getElementById("nameInput").value;
+        const stream = document.getElementById("streamInput").value;
+        if (name && stream) {
+          localStorage.setItem("name", name);
+          localStorage.setItem("stream", stream);
+          profileModal.classList.remove("show");
+          document.getElementById("interestSection").style.display = "block";
+        }
+      }
+
+      function generateFlowchart() {
+        const input = document.getElementById("interestsInput").value;
+        const interests = input.split(",").map((i) => i.trim());
+        const flowchart = document.getElementById("flowchart");
+        flowchart.style.display = "block";
+        flowchart.innerHTML = `>> Generating flowchart for: ${input}...\n\n`;
+        interests.forEach((interest, i) => {
+          flowchart.innerHTML += `Step ${i + 1}: Explore ${interest}\n`;
+        });
+        flowchart.innerHTML += `\n>> Done! Tap each topic to go deeper.`;
+      }
+    </script>
+  </body>
+</html>
