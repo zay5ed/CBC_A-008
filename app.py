@@ -1,53 +1,70 @@
-import csv
-import openai
 from flask import Flask, request, jsonify
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
 
-# Initialize the Flask app
 app = Flask(__name__)
 
-# Set OpenAI API key
-openai.api_key = "your-openai-api-key"  # Replace with your OpenAI API key
+# Load and prepare the dataset
+def load_learning_data():
+    # Sample CSV structure: topic,description,difficulty,prerequisites
+    df = pd.read_csv('learning_data.csv')
+    return df
 
-# Parse the CSV file for interest and link data
-def load_data():
-    people_data = {}
-    with open('people_interests.csv', mode='r') as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            people_data[row['Name']] = {
-                'interests': [row[f"Interest {i}"] for i in range(1, 4)],
-                'links': {row[f"Interest {i}"]: [row[f"Links {j}"] for j in range(1, 5)] for i in range(1, 4)}
+# Initialize TF-IDF vectorizer
+vectorizer = TfidfVectorizer(stop_words='english')
+
+@app.route('/generate_learning_path', methods=['POST'])
+def generate_learning_path():
+    try:
+        data = request.get_json()
+        interests = data.get('interests', '')
+        stream = data.get('stream', '')
+        
+        # Load the dataset
+        df = load_learning_data()
+        
+        # Combine all text features for similarity comparison
+        df['combined_features'] = df['topic'] + ' ' + df['description']
+        
+        # Create TF-IDF matrix
+        tfidf_matrix = vectorizer.fit_transform(df['combined_features'])
+        
+        # Convert user interests to TF-IDF
+        user_interests_tfidf = vectorizer.transform([interests + ' ' + stream])
+        
+        # Calculate similarity scores
+        similarity_scores = cosine_similarity(user_interests_tfidf, tfidf_matrix)
+        
+        # Get top 5 most relevant topics
+        top_indices = similarity_scores[0].argsort()[-5:][::-1]
+        
+        # Create learning path
+        learning_path = []
+        for idx in top_indices:
+            topic_info = {
+                'topic': df.iloc[idx]['topic'],
+                'description': df.iloc[idx]['description'],
+                'difficulty': df.iloc[idx]['difficulty'],
+                'prerequisites': df.iloc[idx]['prerequisites']
             }
-    return people_data
+            learning_path.append(topic_info)
+        
+        return jsonify({
+            'status': 'success',
+            'learning_path': learning_path
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
 
-people_data = load_data()
-
-@app.route('/get_flowchart', methods=['POST'])
-def get_flowchart():
-    data = request.get_json()
-    interests = data['interests']
-
-    # Construct a prompt to generate a flowchart response
-    flowchart_text = ""
-    for interest in interests:
-        links = people_data.get("Person 1", {}).get('links', {}).get(interest, [])
-        if links:
-            flowchart_text += f"\nInterest: {interest}\n"
-            for idx, link in enumerate(links, 1):
-                flowchart_text += f"  - Link {idx}: {link}\n"
-        else:
-            flowchart_text += f"\nInterest: {interest} has no links available.\n"
-
-    # Generate response using OpenAI API
-    prompt = f"Generate a flowchart for the following interests: {flowchart_text}"
-    response = openai.Completion.create(
-        engine="text-davinci-003",  # You can use GPT-4 as well
-        prompt=prompt,
-        max_tokens=200,
-        temperature=0.7
-    )
-
-    return jsonify({'flowchart': response.choices[0].text.strip()})
+@app.route('/')
+def home():
+    return app.send_static_file('ok - Copy.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

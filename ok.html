@@ -23,14 +23,14 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background: linear-gradient(45deg, #4b6cb7, #182848);
+        background: linear-gradient(45deg, #005eff, rgba(154, 137, 173, 0.6));
         color: white;
       }
 
       #startButton {
         padding: 20px 30px;
         font-size: 24px;
-        background: linear-gradient(45deg, #4b6cb7, #182848);
+        background: linear-gradient(45deg, #7e17fd, rgba(27, 46, 188, 0.6));
         color: white;
         border: none;
         border-radius: 8px;
@@ -39,7 +39,7 @@
       }
 
       #startButton:hover {
-        background: linear-gradient(45deg, #182848, #4b6cb7);
+        background: linear-gradient(45deg, #020202, #4b6cb7);
         transform: scale(1.05);
       }
 
@@ -51,6 +51,7 @@
         position: relative;
         background: #333;
         color: white;
+        overflow-y: hidden;
       }
 
       .user-card {
@@ -90,9 +91,6 @@
       }
 
       #cnctButton {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
         padding: 12px 20px;
         font-size: 20px;
         background: linear-gradient(45deg, #ff6f00, #ff8f00);
@@ -100,12 +98,6 @@
         color: white;
         border-radius: 8px;
         cursor: pointer;
-        transition: transform 0.2s, background 0.3s;
-      }
-
-      #cnctButton:hover {
-        background: linear-gradient(45deg, #ff8f00, #ff6f00);
-        transform: scale(1.05);
       }
 
       .popup {
@@ -117,16 +109,6 @@
         background-color: #4caf50;
         color: white;
         border-radius: 5px;
-        z-index: 100;
-      }
-
-      footer {
-        position: fixed;
-        bottom: 10px;
-        width: 100%;
-        text-align: center;
-        font-size: 14px;
-        color: #777;
       }
     </style>
   </head>
@@ -140,7 +122,6 @@
     </div>
 
     <div id="popup" class="popup">Connected!</div>
-
     <footer>by CNCT</footer>
 
     <script>
@@ -151,46 +132,22 @@
         { name: "Aleena", img: "images/uifaces-aleena-image (35).jpg" },
         { name: "Anika", img: "images/uifaces-anika-image (37).jpg" },
       ];
-
-      const interests = ["Music", "Travel", "Sports", "Art", "Tech"];
-      const reel = document.getElementById("reel");
-      const popup = document.getElementById("popup");
       let currentIndex = 0;
 
-      function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-      }
-
       function showPopup() {
+        const popup = document.getElementById("popup");
         popup.style.display = "block";
         setTimeout(() => (popup.style.display = "none"), 1500);
       }
 
-      function createCard(user) {
-        const age = getRandomInt(20, 40);
-        const interest = interests[getRandomInt(0, interests.length)];
-        return `
-            <div class="user-card">
-                <img class="user-img" src="${user.img}" alt="${user.name}">
-                <div class="user-info">
-                    <h3>${user.name}, ${age}</h3>
-                    <p>Interest: ${interest}</p>
-                    <button id="cnctButton">CNCT</button>
-                </div>
-            </div>
-        `;
-      }
-
       function loadUser() {
-        reel.innerHTML = createCard(users[currentIndex]);
+        const user = users[currentIndex % users.length];
+        const card = `<div class="user-card"><img class="user-img" src="${user.img}" alt="${user.name}"><div class="user-info"><h3>${user.name}</h3><button id="cnctButton">CNCT</button></div></div>`;
+        const reel = document.getElementById("reel");
+        reel.innerHTML = card;
         document
           .querySelector("#cnctButton")
           .addEventListener("click", showPopup);
-      }
-
-      function nextUser() {
-        currentIndex = (currentIndex + 1) % users.length;
-        loadUser();
       }
 
       document.getElementById("startButton").addEventListener("click", () => {
@@ -200,9 +157,9 @@
       });
 
       document.addEventListener("wheel", (event) => {
-        if (event.deltaY < 0) {
-          nextUser();
-        }
+        currentIndex += event.deltaY > 0 ? 1 : -1;
+        if (currentIndex < 0) currentIndex = users.length - 1;
+        loadUser();
       });
     </script>
   </body>

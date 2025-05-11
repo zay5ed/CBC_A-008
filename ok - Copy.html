@@ -217,7 +217,7 @@
   </head>
   <body>
     <a href="ok.html" target="_blank" class="connect-btn"
-      >Connect with People</a
+      >Connect with People with same</a
     >
 
     <header>
@@ -287,15 +287,39 @@
 
       function generateFlowchart() {
         const input = document.getElementById("interestsInput").value;
-        const interests = input.split(",").map((i) => i.trim());
-        const flowchart = document.getElementById("flowchart");
-        flowchart.style.display = "block";
-        flowchart.innerHTML = `>> Generating flowchart for: ${input}...\n\n`;
-        interests.forEach((interest, i) => {
-          flowchart.innerHTML += `Step ${i + 1}: Explore ${interest}\n`;
+        const stream = localStorage.getItem("stream") || "";
+        
+        fetch('/generate_learning_path', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                interests: input,
+                stream: stream
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const flowchart = document.getElementById("flowchart");
+            flowchart.style.display = "block";
+            flowchart.innerHTML = `>> Generating personalized learning path...\n\n`;
+            
+            data.learning_path.forEach((item, index) => {
+                flowchart.innerHTML += `Step ${index + 1}: ${item.topic}\n`;
+                flowchart.innerHTML += `Description: ${item.description}\n`;
+                flowchart.innerHTML += `Difficulty: ${item.difficulty}\n`;
+                flowchart.innerHTML += `Prerequisites: ${item.prerequisites}\n\n`;
+            });
+            
+            flowchart.innerHTML += `\n>> Done! Click on topics to start learning.`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            const flowchart = document.getElementById("flowchart");
+            flowchart.innerHTML = "An error occurred while generating your learning path.";
         });
-        flowchart.innerHTML += `\n>> Done! Tap each topic to go deeper.`;
-      }
+    }
     </script>
   </body>
 </html>
