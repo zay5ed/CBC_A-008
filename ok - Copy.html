@@ -6,12 +6,13 @@
     <title>CNCT - Personalized Learning</title>
     <style>
       :root {
-        --primary-color: #9b6b9e;
-        --accent-color: #b8a6d9;
-        --bg-gradient: linear-gradient(135deg, #f5e6ff 0%, #e6e6ff 100%);
-        --text-color: #4a4a4a;
-        --card-bg: rgba(255, 255, 255, 0.9);
-        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --primary-color: #4CAF90;  /* Mint Green */
+        --accent-color: #81C784;  /* Lighter Mint */
+        --bg-gradient: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+        --text-color: #2E7D32;    /* Dark Green */
+        --card-bg: rgba(255, 255, 255, 0.95);
+        --shadow: 0 4px 6px rgba(76, 175, 144, 0.1);
+        --hover-color: #66BB6A;   /* Bright Mint */
       }
 
       body {
@@ -38,17 +39,19 @@
       }
 
       .title h1 {
-        font-size: 3rem;
+        font-size: 3.5rem;
         margin: 0;
         background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        font-weight: 700;
       }
 
       .title p {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         color: var(--text-color);
         margin: 0.5rem 0 0;
+        font-weight: 500;
       }
 
       .modal {
@@ -57,8 +60,8 @@
         left: 50%;
         transform: translate(-50%, -50%);
         background: var(--card-bg);
-        padding: 2rem;
-        border-radius: 15px;
+        padding: 2.5rem;
+        border-radius: 20px;
         box-shadow: var(--shadow);
         z-index: 1000;
         width: 90%;
@@ -72,29 +75,37 @@
       #profileContent {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.2rem;
       }
 
       #profileContent input {
-        padding: 0.8rem;
+        padding: 1rem;
         border: 2px solid var(--accent-color);
-        border-radius: 8px;
-        font-size: 1rem;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+      }
+
+      #profileContent input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(76, 175, 144, 0.1);
+        outline: none;
       }
 
       #profileContent button {
         background: var(--primary-color);
         color: white;
         border: none;
-        padding: 0.8rem;
-        border-radius: 8px;
+        padding: 1rem;
+        border-radius: 12px;
         cursor: pointer;
-        font-size: 1rem;
+        font-size: 1.1rem;
+        font-weight: 600;
         transition: all 0.3s ease;
       }
 
       #profileContent button:hover {
-        background: var(--accent-color);
+        background: var(--hover-color);
         transform: translateY(-2px);
       }
 
@@ -103,38 +114,63 @@
         max-width: 800px;
         margin: 2rem auto;
         background: var(--card-bg);
-        padding: 2rem;
-        border-radius: 15px;
+        padding: 2.5rem;
+        border-radius: 20px;
         box-shadow: var(--shadow);
+      }
+
+      .step h2 {
+        color: var(--primary-color);
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
       }
 
       .chatbox {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.2rem;
         margin-bottom: 2rem;
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+      }
+
+      .chatbox label {
+        color: var(--text-color);
+        font-size: 1.2rem;
+        font-weight: 500;
       }
 
       .chatbox input {
-        padding: 0.8rem;
+        padding: 1rem;
         border: 2px solid var(--accent-color);
-        border-radius: 8px;
-        font-size: 1rem;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+      }
+
+      .chatbox input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(76, 175, 144, 0.1);
+        outline: none;
       }
 
       .chatbox button {
         background: var(--primary-color);
         color: white;
         border: none;
-        padding: 0.8rem;
-        border-radius: 8px;
+        padding: 1rem;
+        border-radius: 12px;
         cursor: pointer;
-        font-size: 1rem;
+        font-size: 1.1rem;
+        font-weight: 600;
         transition: all 0.3s ease;
       }
 
       .chatbox button:hover {
-        background: var(--accent-color);
+        background: var(--hover-color);
         transform: translateY(-2px);
       }
 
@@ -149,7 +185,7 @@
 
       footer {
         text-align: center;
-        padding: 2rem;
+        padding: 2.5rem;
         background: var(--card-bg);
         width: 100%;
         margin-top: auto;
@@ -159,12 +195,14 @@
       footer h3 {
         color: var(--primary-color);
         margin-bottom: 1rem;
+        font-size: 1.5rem;
       }
 
       footer a {
         color: var(--accent-color);
         text-decoration: none;
         transition: color 0.3s ease;
+        font-weight: 500;
       }
 
       footer a:hover {
@@ -183,10 +221,11 @@
         box-shadow: var(--shadow);
         transition: all 0.3s ease;
         z-index: 99;
+        font-weight: 600;
       }
 
       .connect-btn:hover {
-        background: var(--accent-color);
+        background: var(--hover-color);
         transform: translateY(-2px);
       }
 
@@ -202,10 +241,11 @@
         box-shadow: var(--shadow);
         transition: all 0.3s ease;
         z-index: 99;
+        font-weight: 600;
       }
 
       .ai-assistant:hover {
-        background: var(--accent-color);
+        background: var(--hover-color);
         transform: translateY(-2px);
       }
 
@@ -213,63 +253,76 @@
         position: fixed;
         bottom: 80px;
         left: 20px;
-        width: 350px;
-        height: 500px;
+        width: 380px;
+        height: 550px;
         background: var(--card-bg);
-        border-radius: 15px;
+        border-radius: 20px;
         box-shadow: var(--shadow);
         display: flex;
         flex-direction: column;
         z-index: 1000;
+        border: 1px solid rgba(76, 175, 144, 0.1);
       }
 
       .ai-chat-header {
         background: var(--primary-color);
         color: white;
-        padding: 1rem;
-        border-radius: 15px 15px 0 0;
+        padding: 1.2rem;
+        border-radius: 20px 20px 0 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        font-weight: 600;
       }
 
       .ai-chat-messages {
         flex-grow: 1;
-        padding: 1rem;
+        padding: 1.5rem;
         overflow-y: auto;
+        background: white;
       }
 
       .ai-message {
         margin-bottom: 1rem;
-        padding: 0.8rem;
-        border-radius: 10px;
-        max-width: 80%;
+        padding: 1rem;
+        border-radius: 15px;
+        max-width: 85%;
+        line-height: 1.5;
       }
 
       .ai-message.user {
-        background: var(--accent-color);
+        background: var(--primary-color);
         color: white;
         margin-left: auto;
       }
 
       .ai-message.assistant {
-        background: #f0f0f0;
+        background: #F5F5F5;
         color: var(--text-color);
       }
 
       .ai-chat-input {
-        padding: 1rem;
+        padding: 1.2rem;
         display: flex;
-        gap: 0.5rem;
-        border-top: 1px solid #eee;
+        gap: 0.8rem;
+        border-top: 1px solid rgba(76, 175, 144, 0.1);
+        background: white;
+        border-radius: 0 0 20px 20px;
       }
 
       .ai-chat-input input {
         flex-grow: 1;
-        padding: 0.8rem;
+        padding: 0.8rem 1.2rem;
         border: 2px solid var(--accent-color);
-        border-radius: 8px;
+        border-radius: 12px;
         font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .ai-chat-input input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(76, 175, 144, 0.1);
+        outline: none;
       }
 
       .ai-chat-input button {
@@ -277,13 +330,14 @@
         color: white;
         border: none;
         padding: 0.8rem 1.5rem;
-        border-radius: 8px;
+        border-radius: 12px;
         cursor: pointer;
+        font-weight: 600;
         transition: all 0.3s ease;
       }
 
       .ai-chat-input button:hover {
-        background: var(--accent-color);
+        background: var(--hover-color);
       }
 
       .quiz-container {
@@ -369,14 +423,15 @@
         border-radius: 25px;
         text-decoration: none;
         transition: all 0.3s ease;
-        font-size: 0.95rem;
+        font-size: 1rem;
+        font-weight: 500;
         box-shadow: var(--shadow);
       }
 
       .resource-link:hover {
-        background: var(--accent-color);
+        background: var(--hover-color);
         transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 6px 12px rgba(76, 175, 144, 0.2);
       }
 
       .resource-link i {
@@ -384,29 +439,32 @@
       }
 
       .interest-card {
-        background: var(--card-bg);
+        background: white;
         border-radius: 15px;
         padding: 2rem;
         margin: 1.5rem 0;
         box-shadow: var(--shadow);
         transition: all 0.3s ease;
+        border: 1px solid rgba(76, 175, 144, 0.1);
       }
 
       .interest-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 15px rgba(76, 175, 144, 0.15);
       }
 
       .interest-card h3 {
         color: var(--primary-color);
         margin-bottom: 1rem;
         font-size: 1.5rem;
+        font-weight: 600;
       }
 
       .interest-card p {
         color: var(--text-color);
         line-height: 1.6;
         margin-bottom: 1.5rem;
+        font-size: 1.1rem;
       }
 
       .loading {
@@ -454,33 +512,101 @@
         animation: typing 1s infinite ease-in-out;
       }
 
-      .typing-indicator span:nth-child(1) {
-        animation-delay: 0.2s;
-      }
-
-      .typing-indicator span:nth-child(2) {
-        animation-delay: 0.4s;
-      }
-
-      .typing-indicator span:nth-child(3) {
-        animation-delay: 0.6s;
-      }
+      .typing-indicator span:nth-child(1) { animation-delay: 0.2s; }
+      .typing-indicator span:nth-child(2) { animation-delay: 0.4s; }
+      .typing-indicator span:nth-child(3) { animation-delay: 0.6s; }
 
       @keyframes typing {
-        0%, 100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-5px);
-        }
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
       }
 
       .ai-message.typing {
-        background: #f0f0f0;
+        background: #F5F5F5;
         padding: 8px 12px;
-        border-radius: 10px;
+        border-radius: 15px;
         margin-bottom: 1rem;
         max-width: 60px;
+      }
+
+      .learning-tracker {
+        width: 90%;
+        max-width: 800px;
+        margin: 2rem auto;
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 20px;
+        background: #f0f0f0;
+        border-radius: 10px;
+        margin: 1rem 0;
+        overflow: hidden;
+      }
+
+      .progress {
+        height: 100%;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+      }
+
+      .tracker-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .tracker-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+      }
+
+      .tracker-step.completed {
+        background: #E8F5E9;
+      }
+
+      .tracker-step input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-top: 0.2rem;
+      }
+
+      .tracker-step label {
+        flex-grow: 1;
+        font-weight: 500;
+        color: var(--text-color);
+      }
+
+      .step-notes {
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+
+      .step-notes textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid var(--accent-color);
+        border-radius: 8px;
+        resize: vertical;
+        min-height: 60px;
+        font-family: inherit;
+      }
+
+      .step-notes textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(76, 175, 144, 0.1);
       }
     </style>
   </head>
@@ -563,6 +689,9 @@
       <div class="quiz-score" id="quizScore"></div>
     </div>
 
+    <!-- Learning Tracker -->
+    <div id="learningTracker"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
       mermaid.initialize({ 
@@ -579,25 +708,193 @@
       const YOUTUBE_API_KEY = 'YOUR_YOUTUBE_API_KEY';
 
       // Hugging Face API configuration
-      const HF_API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
+      const HF_API_URL = "https://api-inference.huggingface.co/models/microsoft/DialoGPT-large";
       const HF_API_KEY = "YOUR_HUGGING_FACE_API_KEY"; // Replace with your API key
 
-      async function queryHuggingFace(payload) {
-        try {
-          const response = await fetch(HF_API_URL, {
-            method: "POST",
-            headers: {
-              "Authorization": `Bearer ${HF_API_KEY}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          });
-          return await response.json();
-        } catch (error) {
-          console.error("Error querying Hugging Face:", error);
-          return null;
-        }
+      // Learning tracker state
+      let learningTracker = {
+        currentTopic: '',
+        completedSteps: new Set(),
+        notes: {},
+        progress: 0
+      };
+
+      // Initialize learning tracker
+      function initLearningTracker(topic) {
+        learningTracker.currentTopic = topic;
+        learningTracker.completedSteps.clear();
+        learningTracker.notes = {};
+        learningTracker.progress = 0;
+        updateLearningTrackerUI();
       }
+
+      // Update learning tracker UI
+      function updateLearningTrackerUI() {
+        const trackerContainer = document.getElementById('learningTracker');
+        if (!trackerContainer) return;
+
+        const steps = document.querySelectorAll('.interest-card');
+        let html = `
+          <h3>Learning Progress: ${learningTracker.currentTopic}</h3>
+          <div class="progress-bar">
+            <div class="progress" style="width: ${learningTracker.progress}%"></div>
+          </div>
+          <div class="tracker-steps">
+        `;
+
+        steps.forEach((step, index) => {
+          const stepTitle = step.querySelector('h3').textContent;
+          const isCompleted = learningTracker.completedSteps.has(stepTitle);
+          html += `
+            <div class="tracker-step ${isCompleted ? 'completed' : ''}">
+              <input type="checkbox" id="step${index}" 
+                ${isCompleted ? 'checked' : ''} 
+                onchange="toggleStep('${stepTitle}', this.checked)">
+              <label for="step${index}">${stepTitle}</label>
+              <div class="step-notes">
+                <textarea placeholder="Add notes..." 
+                  onchange="updateNotes('${stepTitle}', this.value)">${learningTracker.notes[stepTitle] || ''}</textarea>
+              </div>
+            </div>
+          `;
+        });
+
+        html += '</div>';
+        trackerContainer.innerHTML = html;
+      }
+
+      // Toggle step completion
+      function toggleStep(stepTitle, completed) {
+        if (completed) {
+          learningTracker.completedSteps.add(stepTitle);
+        } else {
+          learningTracker.completedSteps.delete(stepTitle);
+        }
+        updateProgress();
+        updateLearningTrackerUI();
+      }
+
+      // Update notes
+      function updateNotes(stepTitle, notes) {
+        learningTracker.notes[stepTitle] = notes;
+      }
+
+      // Update progress
+      function updateProgress() {
+        const steps = document.querySelectorAll('.interest-card');
+        const totalSteps = steps.length;
+        const completedSteps = learningTracker.completedSteps.size;
+        learningTracker.progress = (completedSteps / totalSteps) * 100;
+      }
+
+      // Remove quiz container and add learning tracker
+      document.addEventListener('DOMContentLoaded', function() {
+        const quizContainer = document.getElementById('quizContainer');
+        if (quizContainer) {
+          quizContainer.remove();
+        }
+
+        // Add learning tracker container
+        const trackerContainer = document.createElement('div');
+        trackerContainer.id = 'learningTracker';
+        trackerContainer.className = 'learning-tracker';
+        document.body.appendChild(trackerContainer);
+      });
+
+      // Add styles for learning tracker
+      const style = document.createElement('style');
+      style.textContent = `
+        .learning-tracker {
+          width: 90%;
+          max-width: 800px;
+          margin: 2rem auto;
+          background: var(--card-bg);
+          padding: 2rem;
+          border-radius: 20px;
+          box-shadow: var(--shadow);
+        }
+
+        .progress-bar {
+          width: 100%;
+          height: 20px;
+          background: #f0f0f0;
+          border-radius: 10px;
+          margin: 1rem 0;
+          overflow: hidden;
+        }
+
+        .progress {
+          height: 100%;
+          background: var(--primary-color);
+          transition: width 0.3s ease;
+        }
+
+        .tracker-steps {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          margin-top: 1.5rem;
+        }
+
+        .tracker-step {
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+          padding: 1rem;
+          background: white;
+          border-radius: 12px;
+          box-shadow: var(--shadow);
+          transition: all 0.3s ease;
+        }
+
+        .tracker-step.completed {
+          background: #E8F5E9;
+        }
+
+        .tracker-step input[type="checkbox"] {
+          width: 20px;
+          height: 20px;
+          margin-top: 0.2rem;
+        }
+
+        .tracker-step label {
+          flex-grow: 1;
+          font-weight: 500;
+          color: var(--text-color);
+        }
+
+        .step-notes {
+          width: 100%;
+          margin-top: 0.5rem;
+        }
+
+        .step-notes textarea {
+          width: 100%;
+          padding: 0.8rem;
+          border: 2px solid var(--accent-color);
+          border-radius: 8px;
+          resize: vertical;
+          min-height: 60px;
+          font-family: inherit;
+        }
+
+        .step-notes textarea:focus {
+          border-color: var(--primary-color);
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(76, 175, 144, 0.1);
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Update generateFlowchart function to initialize learning tracker
+      const originalGenerateFlowchart = generateFlowchart;
+      generateFlowchart = function() {
+        const interestsInput = document.getElementById("interestsInput").value;
+        if (interestsInput) {
+          initLearningTracker(interestsInput);
+        }
+        return originalGenerateFlowchart.apply(this, arguments);
+      };
 
       window.onload = () => {
         // Show the profile modal immediately
@@ -652,6 +949,7 @@
           if (!searchResponse.ok || !searchData.query.search.length) {
             throw new Error('No Wikipedia content found');
           }
+
 
           // Get the first search result
           const pageTitle = searchData.query.search[0].title;
@@ -990,148 +1288,152 @@
       function generateAIResponse(message) {
         const lowerMessage = message.toLowerCase();
         
-        // Learning path responses
-        if (lowerMessage.includes('learning path') || lowerMessage.includes('how to start')) {
-          return "I can help you create a personalized learning path! Here's a suggested approach:\n\n" +
-                 "1. Start with fundamentals and basics\n" +
-                 "2. Move to core concepts and principles\n" +
-                 "3. Practice with hands-on projects\n" +
-                 "4. Explore advanced topics\n\n" +
-                 "Would you like me to suggest specific resources for any of these steps?";
+        // Learning style assessment
+        if (lowerMessage.includes('learning style') || lowerMessage.includes('how do i learn')) {
+          return "Let me help you understand your learning style! Here are the main types:\n\n" +
+                 "1. Visual Learners:\n" +
+                 "   - Learn best through images and diagrams\n" +
+                 "   - Use mind maps and flowcharts\n" +
+                 "   - Watch video tutorials\n\n" +
+                 "2. Auditory Learners:\n" +
+                 "   - Learn through listening and speaking\n" +
+                 "   - Participate in discussions\n" +
+                 "   - Record and listen to lectures\n\n" +
+                 "3. Reading/Writing Learners:\n" +
+                 "   - Learn through text\n" +
+                 "   - Take detailed notes\n" +
+                 "   - Read and write summaries\n\n" +
+                 "4. Kinesthetic Learners:\n" +
+                 "   - Learn through hands-on experience\n" +
+                 "   - Do practical exercises\n" +
+                 "   - Build projects\n\n" +
+                 "Would you like to take a quick learning style assessment?";
         }
 
-        // Programming specific responses
-        if (lowerMessage.includes('programming') || lowerMessage.includes('coding')) {
-          if (lowerMessage.includes('beginner') || lowerMessage.includes('start')) {
-            return "For beginners in programming, I recommend:\n\n" +
-                   "1. Start with Python or JavaScript - they're beginner-friendly\n" +
-                   "2. Learn basic concepts: variables, loops, functions\n" +
-                   "3. Practice with small projects\n" +
-                   "4. Use interactive platforms like Codecademy or freeCodeCamp\n\n" +
-                   "Would you like specific resource recommendations?";
-          }
-          return "Programming is a vast field! I can help you with:\n" +
-                 "- Language-specific guidance\n" +
-                 "- Best practices and patterns\n" +
-                 "- Project ideas and implementation\n" +
-                 "- Debugging and problem-solving\n\n" +
-                 "What specific aspect would you like to explore?";
+        // Career path suggestions
+        if (lowerMessage.includes('career') || lowerMessage.includes('job') || lowerMessage.includes('future')) {
+          return "I can help you explore career paths! Let's consider:\n\n" +
+                 "1. Your Interests:\n" +
+                 "   - What subjects do you enjoy?\n" +
+                 "   - What activities energize you?\n\n" +
+                 "2. Your Skills:\n" +
+                 "   - Technical abilities\n" +
+                 "   - Soft skills\n" +
+                 "   - Transferable skills\n\n" +
+                 "3. Market Trends:\n" +
+                 "   - Growing industries\n" +
+                 "   - Future job prospects\n" +
+                 "   - Required qualifications\n\n" +
+                 "Would you like to explore specific career paths based on your interests?";
         }
 
-        // Data Science specific responses
-        if (lowerMessage.includes('data science') || lowerMessage.includes('machine learning')) {
-          return "Data Science is an exciting field! Here's a structured approach:\n\n" +
-                 "1. Mathematics & Statistics fundamentals\n" +
-                 "2. Python programming and data manipulation\n" +
-                 "3. Data visualization and analysis\n" +
-                 "4. Machine Learning algorithms\n" +
-                 "5. Deep Learning and AI\n\n" +
-                 "Would you like to focus on any particular area?";
+        // Study techniques
+        if (lowerMessage.includes('study') || lowerMessage.includes('exam') || lowerMessage.includes('test')) {
+          return "Here are effective study techniques:\n\n" +
+                 "1. Active Recall:\n" +
+                 "   - Test yourself regularly\n" +
+                 "   - Use flashcards\n" +
+                 "   - Explain concepts to others\n\n" +
+                 "2. Spaced Repetition:\n" +
+                 "   - Review material at increasing intervals\n" +
+                 "   - Use apps like Anki\n" +
+                 "   - Create a study schedule\n\n" +
+                 "3. Mind Mapping:\n" +
+                 "   - Create visual connections\n" +
+                 "   - Organize information hierarchically\n" +
+                 "   - Use colors and images\n\n" +
+                 "4. Practice Problems:\n" +
+                 "   - Solve sample questions\n" +
+                 "   - Create your own problems\n" +
+                 "   - Review past exams\n\n" +
+                 "Would you like specific techniques for your subject?";
         }
 
-        // Web Development specific responses
-        if (lowerMessage.includes('web development') || lowerMessage.includes('web design')) {
-          return "Web Development has three main areas:\n\n" +
-                 "Frontend:\n" +
-                 "- HTML, CSS, JavaScript\n" +
-                 "- React, Vue, or Angular\n\n" +
-                 "Backend:\n" +
-                 "- Node.js, Python, or Java\n" +
-                 "- Databases and APIs\n\n" +
-                 "Full Stack:\n" +
-                 "- Combining frontend and backend\n" +
-                 "- Deployment and DevOps\n\n" +
-                 "Which area interests you the most?";
-        }
-
-        // Resource finding responses
-        if (lowerMessage.includes('resource') || lowerMessage.includes('material') || lowerMessage.includes('learn')) {
-          return "I can help you find the best resources! Here are some options:\n\n" +
-                 "1. Online Courses:\n" +
-                 "   - Coursera\n" +
-                 "   - Udemy\n" +
-                 "   - edX\n\n" +
-                 "2. Interactive Platforms:\n" +
-                 "   - Codecademy\n" +
-                 "   - freeCodeCamp\n" +
-                 "   - DataCamp\n\n" +
-                 "3. Documentation & Tutorials:\n" +
-                 "   - Official documentation\n" +
-                 "   - YouTube tutorials\n" +
-                 "   - GitHub repositories\n\n" +
-                 "What type of resource would you prefer?";
-        }
-
-        // Project guidance responses
+        // Project-based learning
         if (lowerMessage.includes('project') || lowerMessage.includes('build') || lowerMessage.includes('create')) {
-          return "Great! Let's plan your project:\n\n" +
-                 "1. Define your project goals\n" +
-                 "2. Break it down into smaller tasks\n" +
-                 "3. Choose appropriate technologies\n" +
-                 "4. Set up your development environment\n" +
-                 "5. Start with a basic prototype\n\n" +
-                 "Would you like help with any of these steps?";
+          return "Let's plan your learning project:\n\n" +
+                 "1. Project Selection:\n" +
+                 "   - Choose something challenging but achievable\n" +
+                 "   - Align with your learning goals\n" +
+                 "   - Consider real-world applications\n\n" +
+                 "2. Planning Phase:\n" +
+                 "   - Break down into smaller tasks\n" +
+                 "   - Set milestones and deadlines\n" +
+                 "   - Identify required resources\n\n" +
+                 "3. Implementation:\n" +
+                 "   - Start with a prototype\n" +
+                 "   - Document your progress\n" +
+                 "   - Seek feedback regularly\n\n" +
+                 "4. Reflection:\n" +
+                 "   - What did you learn?\n" +
+                 "   - What could be improved?\n" +
+                 "   - How to apply this knowledge?\n\n" +
+                 "Would you like help choosing or planning a specific project?";
         }
 
-        // General learning advice
-        if (lowerMessage.includes('how to learn') || lowerMessage.includes('study')) {
-          return "Here are some effective learning strategies:\n\n" +
-                 "1. Set clear, achievable goals\n" +
-                 "2. Create a consistent study schedule\n" +
-                 "3. Use active learning techniques\n" +
-                 "4. Practice regularly\n" +
-                 "5. Join learning communities\n" +
-                 "6. Build projects to apply knowledge\n\n" +
-                 "Would you like me to elaborate on any of these strategies?";
+        // Learning path creation
+        if (lowerMessage.includes('learning path') || lowerMessage.includes('roadmap') || lowerMessage.includes('plan')) {
+          return "I'll help you create a personalized learning path! Let's consider:\n\n" +
+                 "1. Current Level:\n" +
+                 "   - What do you already know?\n" +
+                 "   - What are your strengths?\n" +
+                 "   - What areas need improvement?\n\n" +
+                 "2. Goals:\n" +
+                 "   - Short-term objectives\n" +
+                 "   - Long-term aspirations\n" +
+                 "   - Specific skills to acquire\n\n" +
+                 "3. Resources:\n" +
+                 "   - Online courses\n" +
+                 "   - Books and articles\n" +
+                 "   - Practice exercises\n" +
+                 "   - Community support\n\n" +
+                 "4. Timeline:\n" +
+                 "   - Weekly milestones\n" +
+                 "   - Monthly goals\n" +
+                 "   - Regular assessments\n\n" +
+                 "Would you like to create a detailed learning path for a specific topic?";
         }
 
-        // Greeting responses
-        if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
-          return "Hello! I'm your AI learning assistant. I can help you with:\n\n" +
-                 "📚 Creating personalized learning paths\n" +
-                 "💡 Explaining complex concepts\n" +
-                 "🔍 Finding relevant resources\n" +
-                 "🎯 Setting learning goals\n" +
-                 "🤝 Providing study strategies\n\n" +
-                 "How can I assist you today?";
+        // Progress tracking
+        if (lowerMessage.includes('progress') || lowerMessage.includes('track') || lowerMessage.includes('improve')) {
+          return "Let's track your learning progress:\n\n" +
+                 "1. Assessment Methods:\n" +
+                 "   - Regular quizzes\n" +
+                 "   - Project milestones\n" +
+                 "   - Skill demonstrations\n" +
+                 "   - Peer reviews\n\n" +
+                 "2. Progress Metrics:\n" +
+                 "   - Knowledge retention\n" +
+                 "   - Skill proficiency\n" +
+                 "   - Problem-solving ability\n" +
+                 "   - Project completion\n\n" +
+                 "3. Improvement Strategies:\n" +
+                 "   - Identify weak areas\n" +
+                 "   - Adjust learning methods\n" +
+                 "   - Seek additional resources\n" +
+                 "   - Practice consistently\n\n" +
+                 "Would you like to set up a progress tracking system?";
         }
 
-        // Help request responses
-        if (lowerMessage.includes('help')) {
-          return "I'm here to help! I can assist you with:\n\n" +
-                 "1. Learning Path Creation\n" +
-                 "   - Personalized roadmaps\n" +
-                 "   - Topic progression\n" +
-                 "   - Resource recommendations\n\n" +
-                 "2. Concept Explanation\n" +
-                 "   - Breaking down complex topics\n" +
-                 "   - Providing examples\n" +
-                 "   - Answering questions\n\n" +
-                 "3. Project Guidance\n" +
-                 "   - Planning and structure\n" +
-                 "   - Best practices\n" +
-                 "   - Implementation tips\n\n" +
-                 "What would you like to explore?";
-        }
-
-        // Thank you responses
-        if (lowerMessage.includes('thank')) {
-          return "You're welcome! Remember, I'm here to help you on your learning journey. " +
-                 "Feel free to ask any questions about:\n" +
-                 "- Learning strategies\n" +
-                 "- Resource recommendations\n" +
-                 "- Concept explanations\n" +
-                 "- Project guidance\n\n" +
-                 "Is there anything else you'd like to know?";
-        }
-
-        // Default response with suggestions
-        return "I understand you're asking about " + message + ". To help you better, I can:\n\n" +
-               "1. Provide specific learning resources\n" +
-               "2. Explain related concepts\n" +
-               "3. Suggest practical projects\n" +
-               "4. Create a learning roadmap\n\n" +
-               "What would be most helpful for you?";
+        // Default response with learning assistance
+        return "I'm your AI learning assistant! I can help you with:\n\n" +
+               "1. Personalized Learning Paths\n" +
+               "   - Customized study plans\n" +
+               "   - Resource recommendations\n" +
+               "   - Progress tracking\n\n" +
+               "2. Study Techniques\n" +
+               "   - Effective learning methods\n" +
+               "   - Time management\n" +
+               "   - Exam preparation\n\n" +
+               "3. Career Guidance\n" +
+               "   - Career path exploration\n" +
+               "   - Skill development\n" +
+               "   - Industry trends\n\n" +
+               "4. Project Support\n" +
+               "   - Project planning\n" +
+               "   - Implementation guidance\n" +
+               "   - Problem-solving\n\n" +
+               "What would you like to explore?";
       }
 
       function previousQuestion() {
