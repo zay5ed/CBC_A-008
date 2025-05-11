@@ -6,228 +6,423 @@
     <title>CNCT - Personalized Learning</title>
     <style>
       :root {
-        --primary-color: #ff6f00;
-        --accent-color: #ff8f00;
-        --text-color: #222;
-        --bg-gradient: linear-gradient(135deg, #fdfbfb, #ebedee);
-        --modal-bg: #fff;
-        --console-bg: #1e1e2f;
-        --console-text: #e0e0e0;
-        --btn-hover: #ffa040;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", sans-serif;
+        --primary-color: #9b6b9e;
+        --accent-color: #b8a6d9;
+        --bg-gradient: linear-gradient(135deg, #f5e6ff 0%, #e6e6ff 100%);
+        --text-color: #4a4a4a;
+        --card-bg: rgba(255, 255, 255, 0.9);
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
       body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
         background: var(--bg-gradient);
         color: var(--text-color);
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 30px 20px;
-        min-height: 100vh;
-      }
-
-      header {
-        width: 100%;
-        max-width: 900px;
-        display: flex;
-        justify-content: flex-end;
-        padding: 10px 0;
-      }
-
-      #profileBtn {
-        background: var(--primary-color);
-        color: #fff;
-        padding: 12px 24px;
-        font-size: 1rem;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      #profileBtn:hover {
-        background: var(--btn-hover);
       }
 
       .title {
         text-align: center;
-        margin: 40px 0 20px;
+        padding: 2rem 0;
+        width: 100%;
+        background: var(--card-bg);
+        box-shadow: var(--shadow);
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
       }
 
       .title h1 {
-        font-size: 4rem;
-        color: var(--primary-color);
-        margin-bottom: 10px;
+        font-size: 3rem;
+        margin: 0;
+        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       .title p {
-        font-size: 1.3rem;
-        font-style: italic;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        margin: 0.5rem 0 0;
       }
 
       .modal {
-        display: none;
         position: fixed;
-        top: 100px;
-        right: 40px;
-        background: var(--modal-bg);
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
         z-index: 1000;
-        width: 300px;
-        animation: fadeIn 0.4s ease-out;
+        width: 90%;
+        max-width: 500px;
       }
 
       .modal.show {
         display: block;
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      #profileContent {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
       }
 
-      .modal input {
-        margin: 8px 0;
-        padding: 10px;
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 6px;
+      #profileContent input {
+        padding: 0.8rem;
+        border: 2px solid var(--accent-color);
+        border-radius: 8px;
+        font-size: 1rem;
       }
 
-      .modal button {
+      #profileContent button {
         background: var(--primary-color);
-        color: #fff;
+        color: white;
         border: none;
-        padding: 12px;
-        border-radius: 6px;
+        padding: 0.8rem;
+        border-radius: 8px;
         cursor: pointer;
-        margin-top: 10px;
-        width: 100%;
-        transition: background 0.3s;
+        font-size: 1rem;
+        transition: all 0.3s ease;
       }
 
-      .modal button:hover {
-        background: var(--btn-hover);
+      #profileContent button:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
       }
 
       .step {
-        width: 100%;
-        max-width: 900px;
-        margin-top: 40px;
-        display: none;
+        width: 90%;
+        max-width: 800px;
+        margin: 2rem auto;
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
       }
 
       .chatbox {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        background: #f9f9f9;
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #ddd;
+        gap: 1rem;
+        margin-bottom: 2rem;
       }
 
       .chatbox input {
-        padding: 10px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid var(--accent-color);
+        border-radius: 8px;
+        font-size: 1rem;
       }
 
       .chatbox button {
         background: var(--primary-color);
         color: white;
         border: none;
-        padding: 10px;
-        border-radius: 6px;
+        padding: 0.8rem;
+        border-radius: 8px;
         cursor: pointer;
-        transition: background 0.3s;
+        font-size: 1rem;
+        transition: all 0.3s ease;
       }
 
       .chatbox button:hover {
-        background: var(--btn-hover);
+        background: var(--accent-color);
+        transform: translateY(-2px);
       }
 
       .flowchart {
-        margin-top: 20px;
-        padding: 20px;
-        background: var(--console-bg);
-        color: var(--console-text);
-        font-family: "Courier New", monospace;
-        border-radius: 12px;
-        min-height: 150px;
-        white-space: pre-wrap;
-        border: 1px solid #444;
+        width: 100%;
+        overflow-x: auto;
+        padding: 1rem;
+        background: white;
+        border-radius: 10px;
+        box-shadow: var(--shadow);
       }
 
       footer {
-        margin-top: 60px;
-        padding: 20px;
-        width: 100%;
-        background: var(--primary-color);
-        color: white;
-        border-radius: 10px;
-        max-width: 900px;
         text-align: center;
+        padding: 2rem;
+        background: var(--card-bg);
+        width: 100%;
+        margin-top: auto;
+        box-shadow: var(--shadow);
       }
 
-      a {
-        color: white;
-        text-decoration: underline;
+      footer h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+
+      footer a {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      footer a:hover {
+        color: var(--primary-color);
       }
 
       .connect-btn {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
+        background: var(--primary-color);
         color: white;
-        padding: 14px 24px;
-        border-radius: 12px;
-        font-weight: bold;
-        font-size: 1rem;
-        box-shadow: 0 0 12px rgba(106, 17, 203, 0.6),
-          0 0 18px rgba(37, 117, 252, 0.6);
-        transition: all 0.3s ease;
-        z-index: 999;
+        padding: 1rem 2rem;
+        border-radius: 50px;
         text-decoration: none;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        z-index: 99;
       }
 
       .connect-btn:hover {
-        background: #fff;
-        color: #2575fc;
-        border: 2px solid #2575fc;
+        background: var(--accent-color);
+        transform: translateY(-2px);
+      }
+
+      .ai-assistant {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        z-index: 99;
+      }
+
+      .ai-assistant:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+      }
+
+      .ai-chat-container {
+        position: fixed;
+        bottom: 80px;
+        left: 20px;
+        width: 350px;
+        height: 500px;
+        background: var(--card-bg);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+      }
+
+      .ai-chat-header {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem;
+        border-radius: 15px 15px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .ai-chat-messages {
+        flex-grow: 1;
+        padding: 1rem;
+        overflow-y: auto;
+      }
+
+      .ai-message {
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+        border-radius: 10px;
+        max-width: 80%;
+      }
+
+      .ai-message.user {
+        background: var(--accent-color);
+        color: white;
+        margin-left: auto;
+      }
+
+      .ai-message.assistant {
+        background: #f0f0f0;
+        color: var(--text-color);
+      }
+
+      .ai-chat-input {
+        padding: 1rem;
+        display: flex;
+        gap: 0.5rem;
+        border-top: 1px solid #eee;
+      }
+
+      .ai-chat-input input {
+        flex-grow: 1;
+        padding: 0.8rem;
+        border: 2px solid var(--accent-color);
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      .ai-chat-input button {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .ai-chat-input button:hover {
+        background: var(--accent-color);
+      }
+
+      .quiz-container {
+        width: 90%;
+        max-width: 800px;
+        margin: 2rem auto;
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+      }
+
+      .quiz-question {
+        margin-bottom: 2rem;
+      }
+
+      .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .quiz-option {
+        padding: 1rem;
+        border: 2px solid var(--accent-color);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-option:hover {
+        background: var(--accent-color);
+        color: white;
+      }
+
+      .quiz-option.selected {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .quiz-controls {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+
+      .quiz-controls button {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .quiz-controls button:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+      }
+
+      .quiz-score {
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        color: var(--primary-color);
+      }
+
+      .resources {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .resource-link {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.8rem 1.5rem;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 25px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+        box-shadow: var(--shadow);
+      }
+
+      .resource-link:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .resource-link i {
+        margin-right: 0.5rem;
+      }
+
+      .interest-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 1.5rem 0;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+      }
+
+      .interest-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .interest-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+
+      .interest-card p {
+        color: var(--text-color);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
       }
 
       .loading {
         display: none;
         text-align: center;
-        margin: 20px 0;
+        margin: 2rem 0;
       }
 
       .loading-spinner {
         width: 40px;
         height: 40px;
-        border: 4px solid #f3f3f3;
+        border: 4px solid var(--accent-color);
         border-top: 4px solid var(--primary-color);
         border-radius: 50%;
         animation: spin 1s linear infinite;
-        margin: 0 auto;
+        margin: 0 auto 1rem;
       }
 
       @keyframes spin {
@@ -235,59 +430,67 @@
         100% { transform: rotate(360deg); }
       }
 
-      .interest-card {
-        background: white;
-        border-radius: 10px;
-        padding: 15px;
-        margin: 10px 0;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-      }
-
-      .interest-card:hover {
-        transform: translateY(-5px);
-      }
-
-      .resource-link {
-        display: inline-block;
-        margin: 5px;
-        padding: 8px 15px;
-        background: var(--primary-color);
-        color: white;
-        border-radius: 5px;
-        text-decoration: none;
-        transition: background 0.3s;
-      }
-
-      .resource-link:hover {
-        background: var(--btn-hover);
-      }
-
       .error-message {
         color: #ff4444;
-        margin: 10px 0;
-        padding: 10px;
+        margin: 1rem 0;
+        padding: 1rem;
         background: #ffeeee;
-        border-radius: 5px;
+        border-radius: 8px;
         display: none;
+      }
+
+      .typing-indicator {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 12px;
+      }
+
+      .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        background: var(--accent-color);
+        border-radius: 50%;
+        animation: typing 1s infinite ease-in-out;
+      }
+
+      .typing-indicator span:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.4s;
+      }
+
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+
+      @keyframes typing {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .ai-message.typing {
+        background: #f0f0f0;
+        padding: 8px 12px;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        max-width: 60px;
       }
     </style>
   </head>
   <body>
-    <a href="ok.html" target="_blank" class="connect-btn"
-      >Connect with People with same</a
-    >
-
-    <header>
-      <button id="profileBtn">👤 Profile</button>
-    </header>
-
     <div class="title">
       <h1>CNCT</h1>
       <p>Learn your way - personalised learning</p>
     </div>
 
-    <div id="profileModal" class="modal">
+    <div id="profileModal" class="modal show">
       <div id="profileContent">
         <input type="text" id="nameInput" placeholder="Enter your name" />
         <input
@@ -299,7 +502,7 @@
       </div>
     </div>
 
-    <div class="step" id="interestSection">
+    <div class="step" id="interestSection" style="display: none;">
       <h2>Your Interests</h2>
       <div class="chatbox">
         <label for="interestsInput">What are you interested in?</label>
@@ -324,6 +527,42 @@
       <p>Follow us on <a href="#">Instagram</a>, <a href="#">Twitter</a></p>
     </footer>
 
+    <!-- Add AI Assistant Button -->
+    <div class="ai-assistant" onclick="toggleAIChat()">
+      💬 Ask AI Assistant
+    </div>
+
+    <!-- AI Chat Container -->
+    <div class="ai-chat-container" id="aiChatContainer" style="display: none;">
+      <div class="ai-chat-header">
+        <span>AI Learning Assistant</span>
+        <button onclick="toggleAIChat()" style="background: none; border: none; color: white; cursor: pointer;">✕</button>
+      </div>
+      <div class="ai-chat-messages" id="aiChatMessages">
+        <div class="ai-message assistant">
+          Hello! I'm your learning assistant. How can I help you today?
+        </div>
+      </div>
+      <div class="ai-chat-input">
+        <input type="text" id="aiChatInput" placeholder="Type your question..." onkeypress="handleAIInput(event)">
+        <button onclick="sendAIMessage()">Send</button>
+      </div>
+    </div>
+
+    <!-- Connect Button -->
+    <a href="ok.html" target="_blank" class="connect-btn">Connect with People</a>
+
+    <!-- Quiz Container -->
+    <div class="quiz-container" id="quizContainer">
+      <h2>Test Your Knowledge</h2>
+      <div id="quizContent"></div>
+      <div class="quiz-controls">
+        <button onclick="previousQuestion()">Previous</button>
+        <button onclick="nextQuestion()">Next</button>
+      </div>
+      <div class="quiz-score" id="quizScore"></div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
       mermaid.initialize({ 
@@ -339,9 +578,34 @@
       // YouTube API Key - Replace with your own from Google Cloud Console
       const YOUTUBE_API_KEY = 'YOUR_YOUTUBE_API_KEY';
 
+      // Hugging Face API configuration
+      const HF_API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill";
+      const HF_API_KEY = "YOUR_HUGGING_FACE_API_KEY"; // Replace with your API key
+
+      async function queryHuggingFace(payload) {
+        try {
+          const response = await fetch(HF_API_URL, {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${HF_API_KEY}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+          return await response.json();
+        } catch (error) {
+          console.error("Error querying Hugging Face:", error);
+          return null;
+        }
+      }
+
       window.onload = () => {
-        localStorage.clear();
-        document.getElementById("profileModal").classList.add("show");
+        // Show the profile modal immediately
+        const profileModal = document.getElementById("profileModal");
+        profileModal.classList.add("show");
+        
+        // Hide the interest section until profile is saved
+        document.getElementById("interestSection").style.display = "none";
       };
 
       const profileBtn = document.getElementById("profileBtn");
@@ -357,8 +621,10 @@
         if (name && stream) {
           localStorage.setItem("name", name);
           localStorage.setItem("stream", stream);
-          profileModal.classList.remove("show");
+          document.getElementById("profileModal").style.display = "none";
           document.getElementById("interestSection").style.display = "block";
+        } else {
+          alert("Please fill in both name and stream/major fields");
         }
       }
 
@@ -380,7 +646,7 @@
 
         try {
           // First try to get Wikipedia content using the search API
-          const searchResponse = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(interestsInput)}&format=json&origin=*`);
+          const searchResponse = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(interestsInput)}+learning+path&format=json&origin=*`);
           const searchData = await searchResponse.json();
           
           if (!searchResponse.ok || !searchData.query.search.length) {
@@ -407,18 +673,18 @@
             throw new Error('No content available');
           }
 
-          // Extract main topics from content
-          const topics = extractTopics(content);
+          // Create a structured learning path
+          const learningPath = createLearningPath(interestsInput, content);
           
           // Generate Mermaid flowchart
           let flowchart = 'graph TD\n';
-          flowchart += `    Start["${interestsInput}"] --> `;
+          flowchart += `    Start["${interestsInput} Learning Path"] --> `;
 
-          topics.forEach((topic, index) => {
-            const topicId = `Topic${index}`;
-            flowchart += `${topicId}["${topic}"]\n`;
-            if (index < topics.length - 1) {
-              flowchart += `    ${topicId} --> Topic${index + 1}\n`;
+          learningPath.forEach((step, index) => {
+            const stepId = `Step${index}`;
+            flowchart += `${stepId}["${step.title}"]\n`;
+            if (index < learningPath.length - 1) {
+              flowchart += `    ${stepId} --> Step${index + 1}\n`;
             }
           });
 
@@ -429,41 +695,33 @@
           const interestCards = document.createElement('div');
           interestCards.className = 'interest-cards';
           
-          for (const topic of topics) {
+          learningPath.forEach((step, index) => {
             const card = document.createElement('div');
             card.className = 'interest-card';
             
-            // Get related content
-            const description = getTopicDescription(content, topic);
-            const relatedTopics = getRelatedTopics(content, topic);
-            
             card.innerHTML = `
-              <h3>${topic}</h3>
-              <p>${description}</p>
-              ${relatedTopics.length > 0 ? `
-                <div class="related-topics">
-                  <h4>Related Topics:</h4>
-                  <ul>
-                    ${relatedTopics.map(rt => `<li>${rt}</li>`).join('')}
-                  </ul>
-                </div>
-              ` : ''}
+              <h3>${step.title}</h3>
+              <p>${step.description}</p>
               <div class="resources">
-                <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(pageTitle)}" target="_blank" class="resource-link">
-                  Read More on Wikipedia
-                </a>
-                <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(topic)}+tutorial" target="_blank" class="resource-link">
-                  Find Tutorials on YouTube
-                </a>
-                <a href="https://www.google.com/search?q=${encodeURIComponent(topic)}+learning+resources" target="_blank" class="resource-link">
-                  Search Learning Resources
-                </a>
+                ${step.resources.map(resource => `
+                  <a href="${resource.url}" target="_blank" class="resource-link">
+                    ${resource.title}
+                  </a>
+                `).join('')}
               </div>
             `;
+            
             interestCards.appendChild(card);
-          }
+          });
 
           flowchartContainer.appendChild(interestCards);
+
+          // Add quiz generation after flowchart
+          const quizButton = document.createElement('button');
+          quizButton.className = 'resource-link';
+          quizButton.textContent = 'Take a Quiz';
+          quizButton.onclick = () => generateQuiz(interestsInput);
+          flowchartContainer.appendChild(quizButton);
 
         } catch (error) {
           errorMessage.style.display = "block";
@@ -484,9 +742,6 @@
                 <a href="https://www.udemy.com/courses/search/?q=${encodeURIComponent(interestsInput)}" target="_blank" class="resource-link">
                   Udemy Courses
                 </a>
-                <a href="https://www.google.com/search?q=${encodeURIComponent(interestsInput)}+learning+resources" target="_blank" class="resource-link">
-                  Google Search
-                </a>
               </div>
             </div>
           `;
@@ -496,54 +751,395 @@
         }
       }
 
-      function extractTopics(content) {
-        // Split content into sentences and extract main topics
+      function createLearningPath(topic, content) {
+        // Split content into sentences
         const sentences = content.split(/[.!?]+/).filter(s => s.trim().length > 0);
-        return sentences.slice(0, 5).map(sentence => {
-          // Extract the main topic from each sentence
-          const words = sentence.split(' ');
-          return words.slice(0, 5).join(' ').trim();
-        });
-      }
-
-      function getTopicDescription(content, topic) {
-        // Find the sentence containing the topic
-        const sentences = content.split(/[.!?]+/);
-        const relevantSentence = sentences.find(s => s.includes(topic));
-        return relevantSentence ? relevantSentence.trim() : topic;
-      }
-
-      function getRelatedTopics(content, topic) {
-        // Find sentences that might contain related topics
-        const sentences = content.split(/[.!?]+/);
-        const relatedSentences = sentences.filter(s => 
-          s.includes(topic) && s.length > 20 && s.length < 200
-        );
         
-        // Extract potential related topics
-        return relatedSentences.slice(0, 3).map(sentence => {
-          const words = sentence.split(' ');
-          return words.slice(0, 8).join(' ').trim();
+        // Define topic-specific learning paths
+        const patterns = {
+          'programming': [
+            { 
+              title: 'Programming Fundamentals',
+              keywords: ['basic', 'fundamental', 'syntax', 'variable', 'data type'],
+              description: 'Start with programming basics, variables, data types, and control structures'
+            },
+            { 
+              title: 'Core Programming Concepts',
+              keywords: ['function', 'object', 'class', 'method', 'algorithm'],
+              description: 'Learn about functions, objects, classes, and basic algorithms'
+            },
+            { 
+              title: 'Advanced Programming',
+              keywords: ['advanced', 'complex', 'optimization', 'design pattern', 'architecture'],
+              description: 'Dive into advanced concepts, design patterns, and software architecture'
+            },
+            { 
+              title: 'Project Development',
+              keywords: ['project', 'application', 'development', 'implementation', 'deployment'],
+              description: 'Build real-world projects and learn deployment strategies'
+            }
+          ],
+          'data science': [
+            {
+              title: 'Data Analysis Basics',
+              keywords: ['data', 'analysis', 'statistics', 'visualization', 'pandas'],
+              description: 'Learn data manipulation, basic statistics, and visualization'
+            },
+            {
+              title: 'Machine Learning Fundamentals',
+              keywords: ['machine learning', 'algorithm', 'model', 'training', 'prediction'],
+              description: 'Understand machine learning algorithms and model training'
+            },
+            {
+              title: 'Advanced Analytics',
+              keywords: ['deep learning', 'neural network', 'big data', 'optimization'],
+              description: 'Explore deep learning, neural networks, and big data processing'
+            },
+            {
+              title: 'Real-world Applications',
+              keywords: ['application', 'project', 'implementation', 'deployment', 'production'],
+              description: 'Apply your skills to real-world data science projects'
+            }
+          ],
+          'web development': [
+            {
+              title: 'Web Fundamentals',
+              keywords: ['html', 'css', 'javascript', 'basic', 'frontend'],
+              description: 'Master HTML, CSS, and basic JavaScript for web development'
+            },
+            {
+              title: 'Frontend Development',
+              keywords: ['react', 'angular', 'vue', 'framework', 'component'],
+              description: 'Learn modern frontend frameworks and component-based development'
+            },
+            {
+              title: 'Backend Development',
+              keywords: ['server', 'database', 'api', 'backend', 'node'],
+              description: 'Understand server-side programming, databases, and APIs'
+            },
+            {
+              title: 'Full Stack Projects',
+              keywords: ['full stack', 'project', 'deployment', 'production', 'application'],
+              description: 'Build and deploy complete web applications'
+            }
+          ],
+          'default': [
+            {
+              title: 'Introduction & Basics',
+              keywords: ['introduction', 'basic', 'fundamental', 'overview', 'beginner'],
+              description: 'Start with the fundamental concepts and basic principles'
+            },
+            {
+              title: 'Core Concepts',
+              keywords: ['core', 'concept', 'principle', 'theory', 'method'],
+              description: 'Dive into the core concepts and essential theories'
+            },
+            {
+              title: 'Advanced Topics',
+              keywords: ['advanced', 'complex', 'sophisticated', 'expert', 'specialized'],
+              description: 'Explore advanced topics and specialized areas'
+            },
+            {
+              title: 'Practical Applications',
+              keywords: ['application', 'practice', 'implementation', 'project', 'real-world'],
+              description: 'Apply your knowledge to real-world projects and scenarios'
+            }
+          ]
+        };
+
+        // Determine the appropriate pattern based on the topic
+        let pattern = patterns.default;
+        const topicLower = topic.toLowerCase();
+        
+        if (topicLower.includes('programming') || topicLower.includes('coding') || topicLower.includes('software')) {
+          pattern = patterns.programming;
+        } else if (topicLower.includes('data') || topicLower.includes('analytics') || topicLower.includes('machine learning')) {
+          pattern = patterns['data science'];
+        } else if (topicLower.includes('web') || topicLower.includes('frontend') || topicLower.includes('backend')) {
+          pattern = patterns['web development'];
+        }
+
+        // Create learning path steps with relevant content
+        return pattern.map(step => {
+          // Find relevant sentences for this step
+          const relevantSentences = sentences.filter(sentence => 
+            step.keywords.some(keyword => 
+              sentence.toLowerCase().includes(keyword.toLowerCase())
+            )
+          );
+
+          // Get the most relevant sentence or use the default description
+          const description = relevantSentences.length > 0 
+            ? relevantSentences[0].trim()
+            : step.description;
+
+          return {
+            title: step.title,
+            description: description,
+            resources: generateResources(step.title, topic)
+          };
         });
       }
 
-      async function searchYouTubeVideos(topic) {
-        try {
-          const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(topic)}&type=video&maxResults=3&key=${YOUTUBE_API_KEY}`);
-          const data = await response.json();
-          
-          if (!response.ok) {
-            throw new Error('Failed to fetch YouTube videos');
+      function generateResources(stepTitle, mainTopic) {
+        const resources = [
+          {
+            title: '📚 Learn More',
+            url: `https://en.wikipedia.org/wiki/${encodeURIComponent(stepTitle)}`
+          },
+          {
+            title: '🎥 Video Tutorials',
+            url: `https://www.youtube.com/results?search_query=${encodeURIComponent(stepTitle + ' ' + mainTopic)}+tutorial`
+          },
+          {
+            title: '🎓 Online Courses',
+            url: `https://www.coursera.org/search?query=${encodeURIComponent(stepTitle + ' ' + mainTopic)}`
           }
+        ];
 
-          return data.items.map(item => ({
-            title: item.snippet.title,
-            url: `https://www.youtube.com/watch?v=${item.id.videoId}`
-          }));
-        } catch (error) {
-          console.error('Error fetching YouTube videos:', error);
-          return [];
+        // Add topic-specific resources
+        if (mainTopic.toLowerCase().includes('programming')) {
+          resources.push({
+            title: '💻 Code Examples',
+            url: `https://github.com/topics/${encodeURIComponent(stepTitle)}`
+          });
         }
+
+        return resources;
+      }
+
+      function generateQuiz(topic) {
+        // Implementation of generateQuiz function
+      }
+
+      function toggleAIChat() {
+        const chatContainer = document.getElementById('aiChatContainer');
+        chatContainer.style.display = chatContainer.style.display === 'none' ? 'flex' : 'none';
+      }
+
+      function handleAIInput(event) {
+        if (event.key === 'Enter') {
+          sendAIMessage();
+        }
+      }
+
+      async function sendAIMessage() {
+        const input = document.getElementById('aiChatInput');
+        const message = input.value.trim();
+        
+        if (message) {
+          const chatMessages = document.getElementById('aiChatMessages');
+          
+          // Add user message
+          const userMessage = document.createElement('div');
+          userMessage.className = 'ai-message user';
+          userMessage.textContent = message;
+          chatMessages.appendChild(userMessage);
+          
+          // Clear input
+          input.value = '';
+          
+          // Show typing indicator
+          const typingIndicator = document.createElement('div');
+          typingIndicator.className = 'ai-message assistant typing';
+          typingIndicator.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+          chatMessages.appendChild(typingIndicator);
+          
+          try {
+            // Try to get response from Hugging Face
+            const hfResponse = await queryHuggingFace({
+              inputs: {
+                text: message
+              }
+            });
+
+            // Remove typing indicator
+            chatMessages.removeChild(typingIndicator);
+
+            if (hfResponse && hfResponse.generated_text) {
+              // Use Hugging Face response
+              const assistantMessage = document.createElement('div');
+              assistantMessage.className = 'ai-message assistant';
+              assistantMessage.textContent = hfResponse.generated_text;
+              chatMessages.appendChild(assistantMessage);
+            } else {
+              // Fallback to local responses if Hugging Face fails
+              const localResponse = generateAIResponse(message);
+              const assistantMessage = document.createElement('div');
+              assistantMessage.className = 'ai-message assistant';
+              assistantMessage.textContent = localResponse;
+              chatMessages.appendChild(assistantMessage);
+            }
+          } catch (error) {
+            // Remove typing indicator
+            chatMessages.removeChild(typingIndicator);
+            
+            // Fallback to local responses
+            const localResponse = generateAIResponse(message);
+            const assistantMessage = document.createElement('div');
+            assistantMessage.className = 'ai-message assistant';
+            assistantMessage.textContent = localResponse;
+            chatMessages.appendChild(assistantMessage);
+          }
+          
+          // Scroll to bottom
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+      }
+
+      function generateAIResponse(message) {
+        const lowerMessage = message.toLowerCase();
+        
+        // Learning path responses
+        if (lowerMessage.includes('learning path') || lowerMessage.includes('how to start')) {
+          return "I can help you create a personalized learning path! Here's a suggested approach:\n\n" +
+                 "1. Start with fundamentals and basics\n" +
+                 "2. Move to core concepts and principles\n" +
+                 "3. Practice with hands-on projects\n" +
+                 "4. Explore advanced topics\n\n" +
+                 "Would you like me to suggest specific resources for any of these steps?";
+        }
+
+        // Programming specific responses
+        if (lowerMessage.includes('programming') || lowerMessage.includes('coding')) {
+          if (lowerMessage.includes('beginner') || lowerMessage.includes('start')) {
+            return "For beginners in programming, I recommend:\n\n" +
+                   "1. Start with Python or JavaScript - they're beginner-friendly\n" +
+                   "2. Learn basic concepts: variables, loops, functions\n" +
+                   "3. Practice with small projects\n" +
+                   "4. Use interactive platforms like Codecademy or freeCodeCamp\n\n" +
+                   "Would you like specific resource recommendations?";
+          }
+          return "Programming is a vast field! I can help you with:\n" +
+                 "- Language-specific guidance\n" +
+                 "- Best practices and patterns\n" +
+                 "- Project ideas and implementation\n" +
+                 "- Debugging and problem-solving\n\n" +
+                 "What specific aspect would you like to explore?";
+        }
+
+        // Data Science specific responses
+        if (lowerMessage.includes('data science') || lowerMessage.includes('machine learning')) {
+          return "Data Science is an exciting field! Here's a structured approach:\n\n" +
+                 "1. Mathematics & Statistics fundamentals\n" +
+                 "2. Python programming and data manipulation\n" +
+                 "3. Data visualization and analysis\n" +
+                 "4. Machine Learning algorithms\n" +
+                 "5. Deep Learning and AI\n\n" +
+                 "Would you like to focus on any particular area?";
+        }
+
+        // Web Development specific responses
+        if (lowerMessage.includes('web development') || lowerMessage.includes('web design')) {
+          return "Web Development has three main areas:\n\n" +
+                 "Frontend:\n" +
+                 "- HTML, CSS, JavaScript\n" +
+                 "- React, Vue, or Angular\n\n" +
+                 "Backend:\n" +
+                 "- Node.js, Python, or Java\n" +
+                 "- Databases and APIs\n\n" +
+                 "Full Stack:\n" +
+                 "- Combining frontend and backend\n" +
+                 "- Deployment and DevOps\n\n" +
+                 "Which area interests you the most?";
+        }
+
+        // Resource finding responses
+        if (lowerMessage.includes('resource') || lowerMessage.includes('material') || lowerMessage.includes('learn')) {
+          return "I can help you find the best resources! Here are some options:\n\n" +
+                 "1. Online Courses:\n" +
+                 "   - Coursera\n" +
+                 "   - Udemy\n" +
+                 "   - edX\n\n" +
+                 "2. Interactive Platforms:\n" +
+                 "   - Codecademy\n" +
+                 "   - freeCodeCamp\n" +
+                 "   - DataCamp\n\n" +
+                 "3. Documentation & Tutorials:\n" +
+                 "   - Official documentation\n" +
+                 "   - YouTube tutorials\n" +
+                 "   - GitHub repositories\n\n" +
+                 "What type of resource would you prefer?";
+        }
+
+        // Project guidance responses
+        if (lowerMessage.includes('project') || lowerMessage.includes('build') || lowerMessage.includes('create')) {
+          return "Great! Let's plan your project:\n\n" +
+                 "1. Define your project goals\n" +
+                 "2. Break it down into smaller tasks\n" +
+                 "3. Choose appropriate technologies\n" +
+                 "4. Set up your development environment\n" +
+                 "5. Start with a basic prototype\n\n" +
+                 "Would you like help with any of these steps?";
+        }
+
+        // General learning advice
+        if (lowerMessage.includes('how to learn') || lowerMessage.includes('study')) {
+          return "Here are some effective learning strategies:\n\n" +
+                 "1. Set clear, achievable goals\n" +
+                 "2. Create a consistent study schedule\n" +
+                 "3. Use active learning techniques\n" +
+                 "4. Practice regularly\n" +
+                 "5. Join learning communities\n" +
+                 "6. Build projects to apply knowledge\n\n" +
+                 "Would you like me to elaborate on any of these strategies?";
+        }
+
+        // Greeting responses
+        if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+          return "Hello! I'm your AI learning assistant. I can help you with:\n\n" +
+                 "📚 Creating personalized learning paths\n" +
+                 "💡 Explaining complex concepts\n" +
+                 "🔍 Finding relevant resources\n" +
+                 "🎯 Setting learning goals\n" +
+                 "🤝 Providing study strategies\n\n" +
+                 "How can I assist you today?";
+        }
+
+        // Help request responses
+        if (lowerMessage.includes('help')) {
+          return "I'm here to help! I can assist you with:\n\n" +
+                 "1. Learning Path Creation\n" +
+                 "   - Personalized roadmaps\n" +
+                 "   - Topic progression\n" +
+                 "   - Resource recommendations\n\n" +
+                 "2. Concept Explanation\n" +
+                 "   - Breaking down complex topics\n" +
+                 "   - Providing examples\n" +
+                 "   - Answering questions\n\n" +
+                 "3. Project Guidance\n" +
+                 "   - Planning and structure\n" +
+                 "   - Best practices\n" +
+                 "   - Implementation tips\n\n" +
+                 "What would you like to explore?";
+        }
+
+        // Thank you responses
+        if (lowerMessage.includes('thank')) {
+          return "You're welcome! Remember, I'm here to help you on your learning journey. " +
+                 "Feel free to ask any questions about:\n" +
+                 "- Learning strategies\n" +
+                 "- Resource recommendations\n" +
+                 "- Concept explanations\n" +
+                 "- Project guidance\n\n" +
+                 "Is there anything else you'd like to know?";
+        }
+
+        // Default response with suggestions
+        return "I understand you're asking about " + message + ". To help you better, I can:\n\n" +
+               "1. Provide specific learning resources\n" +
+               "2. Explain related concepts\n" +
+               "3. Suggest practical projects\n" +
+               "4. Create a learning roadmap\n\n" +
+               "What would be most helpful for you?";
+      }
+
+      function previousQuestion() {
+        // Implementation of previousQuestion function
+      }
+
+      function nextQuestion() {
+        // Implementation of nextQuestion function
       }
     </script>
   </body>
